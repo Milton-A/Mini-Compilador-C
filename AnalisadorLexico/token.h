@@ -6,7 +6,8 @@
 
 #define TK_AP 								"abre_parenteses"
 #define TK_FP 								"fecha_parenteses"
-
+#define TK_APR 								"abre_parenteses_Recto"
+#define TK_FPR 								"fecha_parenteses_Recto"
 #define TK_AC 								"abre_chaves"
 #define TK_FC 								"fecha_chaves"
 

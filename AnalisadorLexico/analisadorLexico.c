@@ -1,27 +1,46 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <ctype.h>
-#include <string.h>
+#include "../directivasDeProcessamento/Bibliotecas.c"
 #include "token.h"
-#include "header.h"
+#include "../estruturas/estruturas.c"
 
-typedef struct Tipo
-{
-	char *token;
-	char *lexema;
-	int linha;
-} Tipo;
 int cont = 0;
 int contLinha = 1;
 
+Tipo k;
+
+char lerCaractere()
+{
+	char caractere;
+	fread(&caractere, 1, 1, ficheiro);
+	return caractere;
+};
+void VoltarCaractere()
+{
+	fseek(ficheiro, -1, SEEK_CUR); // posiciona o cursor uma posi??o anterior
+};
+void zerarVetor()
+{
+	int conte;
+	for (conte = 0; conte < MAX; conte++)
+	{
+		vetor[conte] = '\0';
+	}
+	cont = 0;
+}
+
 Tipo analex(FILE *ficheiro)
 {
-	Tipo k;
+
 	int estado = 0;
 	char caractere;
 	zerarVetor();
+
 	while (!feof(ficheiro))
 	{
+		k.linha=contLinha;
+		if (caractere == '\n')
+		{
+			 contLinha++;
+		}
 		switch (estado)
 		{
 		case 0:
@@ -198,7 +217,7 @@ Tipo analex(FILE *ficheiro)
 					estado = 54;
 				}
 			}
-			else if (caractere == '(')		
+			else if (caractere == '(')
 			{
 				vetor[cont] = caractere;
 				cont++;
@@ -317,18 +336,16 @@ Tipo analex(FILE *ficheiro)
 			break;
 		case 2:
 			k.lexema = vetor;
-			char *palavras_reservadas[] = {"auto", "break", "case", "char", "const", "continue", "default", "do","double", "else", "enum", "extern", "float", "for", "goto", "if","int", "long", "register", "return", "short", "signed", "sizeof", "static","struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"};
+			char *palavras_reservadas[] = {"auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"};
 			for (int i = 0; i < 32; i++)
 			{
 				if (strcmp(palavras_reservadas[i], k.lexema) == 0)
 				{
 					k.token = TK_PRV;
-					k.linha = contLinha++;
 					return k;
 				}
 			}
 			k.token = TK_ID;
-			k.linha = contLinha++;
 			return k;
 			break;
 		case 3:
@@ -351,14 +368,14 @@ Tipo analex(FILE *ficheiro)
 		case 4:
 			k.lexema = vetor;
 			k.token = TK_INT;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 
 		case 5:
 			k.lexema = vetor;
 			k.token = TK_CM;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 6:
@@ -374,7 +391,7 @@ Tipo analex(FILE *ficheiro)
 		case 7:
 			k.lexema = vetor;
 			k.token = TK_FLOAT;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 8:
@@ -409,7 +426,6 @@ Tipo analex(FILE *ficheiro)
 		case 14:
 			k.lexema = vetor;
 			k.token = TK_CM;
-			k.linha = contLinha++;
 			return k;
 			break;
 		case 15:
@@ -446,31 +462,31 @@ Tipo analex(FILE *ficheiro)
 		case 17:
 			k.lexema = vetor;
 			k.token = TK_CM;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 18:
 			k.lexema = vetor;
 			k.token = TK_AD;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 19:
 			k.lexema = vetor;
 			k.token = TK_SUB;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 20:
 			k.lexema = vetor;
 			k.token = TK_DIV;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 21:
 			k.lexema = vetor;
 			k.token = TK_MOD;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 22:
@@ -483,7 +499,7 @@ Tipo analex(FILE *ficheiro)
 		case 23:
 			k.lexema = vetor;
 			k.token = TK_INCREMENT;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 24:
@@ -496,13 +512,13 @@ Tipo analex(FILE *ficheiro)
 		case 25:
 			k.lexema = vetor;
 			k.token = TK_DECREMENT;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 26:
 			k.lexema = vetor;
 			k.token = TK_MUL;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 27:
@@ -515,7 +531,7 @@ Tipo analex(FILE *ficheiro)
 		case 28:
 			k.lexema = vetor;
 			k.token = TK_ATR_AD;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 29:
@@ -528,13 +544,13 @@ Tipo analex(FILE *ficheiro)
 		case 30:
 			k.lexema = vetor;
 			k.token = TK_ATR_SUB;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 31:
 			k.lexema = vetor;
 			k.token = TK_ATR;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 32:
@@ -547,7 +563,7 @@ Tipo analex(FILE *ficheiro)
 		case 33:
 			k.lexema = vetor;
 			k.token = TK_IG;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 34:
@@ -560,7 +576,7 @@ Tipo analex(FILE *ficheiro)
 		case 35:
 			k.lexema = vetor;
 			k.token = TK_ATR_MUL;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 36:
@@ -573,7 +589,7 @@ Tipo analex(FILE *ficheiro)
 		case 37:
 			k.lexema = vetor;
 			k.token = TK_ATR_MOD;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 38:
@@ -586,7 +602,7 @@ Tipo analex(FILE *ficheiro)
 		case 39:
 			k.lexema = vetor;
 			k.token = TK_ATR_BOU;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 40:
@@ -599,7 +615,7 @@ Tipo analex(FILE *ficheiro)
 		case 41:
 			k.lexema = vetor;
 			k.token = TK_ATR_BOU_EX;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 42:
@@ -615,7 +631,7 @@ Tipo analex(FILE *ficheiro)
 		case 44:
 			k.lexema = vetor;
 			k.token = TK_ATR_DES_ES;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 45:
@@ -628,7 +644,7 @@ Tipo analex(FILE *ficheiro)
 		case 46:
 			k.lexema = vetor;
 			k.token = TK_IG;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 47:
@@ -641,13 +657,13 @@ Tipo analex(FILE *ficheiro)
 		case 48:
 			k.lexema = vetor;
 			k.token = TK_DIF;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 49:
 			k.lexema = vetor;
 			k.token = TK_MENOR;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 50:
@@ -660,13 +676,13 @@ Tipo analex(FILE *ficheiro)
 		case 51:
 			k.lexema = vetor;
 			k.token = TK_MENORIG;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 52:
 			k.lexema = vetor;
 			k.token = TK_MAIORIG;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 53:
@@ -679,7 +695,7 @@ Tipo analex(FILE *ficheiro)
 		case 54:
 			k.lexema = vetor;
 			k.token = TK_MAIOR;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 55:
@@ -692,7 +708,7 @@ Tipo analex(FILE *ficheiro)
 		case 56:
 			k.lexema = vetor;
 			k.token = TK_AND;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 57:
@@ -705,31 +721,31 @@ Tipo analex(FILE *ficheiro)
 		case 58:
 			k.lexema = vetor;
 			k.token = TK_OR;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 59:
 			k.lexema = vetor;
 			k.token = TK_NEG;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 60:
 			k.lexema = vetor;
 			k.token = TK_ADDRESS;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 61:
 			k.lexema = vetor;
 			k.token = TK_BOU_EX;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 62:
 			k.lexema = vetor;
 			k.token = TK_BOU;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 63:
@@ -751,19 +767,19 @@ Tipo analex(FILE *ficheiro)
 		case 64:
 			k.lexema = vetor;
 			k.token = TK_DES_D;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 65:
 			k.lexema = vetor;
 			k.token = TK_DES_ES;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 66:
 			k.lexema = vetor;
 			k.token = TK_BCOMP;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 67:
@@ -794,7 +810,7 @@ Tipo analex(FILE *ficheiro)
 		case 70:
 			k.lexema = vetor;
 			k.token = TK_ATR_DES_D;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 71:
@@ -804,37 +820,37 @@ Tipo analex(FILE *ficheiro)
 		case 73:
 			k.lexema = vetor;
 			k.token = TK_AC;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 74:
 			k.lexema = vetor;
 			k.token = TK_FC;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 75:
 			k.lexema = vetor;
 			k.token = TK_AP;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 76:
 			k.lexema = vetor;
 			k.token = TK_FP;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 77:
 			k.lexema = vetor;
 			k.token = TK_PV;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 78:
 			k.lexema = vetor;
 			k.token = TK_VG;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 79:
@@ -854,7 +870,7 @@ Tipo analex(FILE *ficheiro)
 		case 81:
 			k.lexema = vetor;
 			k.token = TK_TEXT;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 82:
@@ -869,7 +885,7 @@ Tipo analex(FILE *ficheiro)
 		case 83:
 			k.lexema = vetor;
 			k.token = TK_CHAR;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 84:
@@ -947,7 +963,7 @@ Tipo analex(FILE *ficheiro)
 		case 96:
 			k.lexema = vetor;
 			k.token = TK_DIRE;
-			k.linha = contLinha++;
+
 			return k;
 			break;
 		case 97:

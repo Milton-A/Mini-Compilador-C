@@ -1,0 +1,114 @@
+#include "../AnalisadorLexico/analisadorLexico.c"
+#include "headerSintatico.h"
+ifff auto register
+char entrada = '';
+
+void program()
+{
+    declList();
+}
+
+void declList()
+{
+    decl();
+    while (entrada != TK_FC)
+    {
+        decl();
+    }
+}
+
+void decl()
+{
+    varDecl();
+    funDecl();
+}
+
+void scopedVarDecl()
+{
+    if (entrada == "static")
+    {
+        typeSpec();
+        varDeclList();
+    }
+    else
+    {
+        typeSpec();
+        varDeclList();
+    }
+}
+
+void varDecl()
+{
+    typeSpec();
+    varDeclList();
+}
+
+void varDeclList()
+{
+    varDeclInit();
+    while (entrada == TK_VG)
+    {
+        varDeclInit();
+    }
+}
+
+void varDeclInit()
+{
+    varDeclId();
+    if (entrada == TK_IG)
+    {
+        parmId();
+    }
+}
+
+void varDeclID()
+{
+    if (entrada != TK_ID)
+    {
+        if (entrada == TK_PV)
+        {
+            printf("Declaração de variavel simples");
+        }
+        else if (entrada == TK_APR)
+        {
+            if (entrada == TK_INT)
+            {
+                if (entrada == TK_FPR)
+                {
+                    if (entrada == TK_PV)
+                    {
+                        printf("Declaração de vetor");
+                    }
+                    else
+                    {
+                        printf("Erro Sintatico");
+                    }
+                }
+                else
+                {
+                    printf("Erro Sintatico");
+                }
+            }
+            else
+            {
+                printf("Erro Sintatico");
+            }
+        }
+        else
+        {
+            printf("Erro Sintatico");
+        }
+    }
+    else
+    {
+        printf("Erro Sintatico");
+    }
+}
+
+void typeSpec()
+{
+    if(entrada == "int" | entrada == "boolean" | entrada == "char" | entrada == "float" | entrada == "double" | entrada == "void")
+    {
+        printf("Tipo lido");
+    }
+}    
