@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <math.h>
 
-// Estrutura para armazenar as informações de um documento
+// Estrutura para armazenar as informa de um documento
+
 typedef struct Documento {
     int ID;
     double* pontuacoes;

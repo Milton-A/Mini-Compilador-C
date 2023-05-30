@@ -1,9 +1,13 @@
 #include "../directivasDeProcessamento/Bibliotecas.c"
 typedef struct Tipo Tipo;
 typedef struct ListaCodigo ListaCodigo;
+typedef struct Erro Erro; 
+typedef struct listaVariaveis listaVariaveis;
 
-void insert(ListaCodigo* topo, Tipo dadoToken);
-void display(ListaCodigo* topo);
+void adicionarErro(char *mensagem, int linha);
+void adicionarVariavel(char *mensagem, int linha);
+void adicionarElemento(ListaCodigo** lista, Tipo dadoToken);
+void display(Tipo t);
 //==================================================================================
 
 char lerCaractere();
@@ -106,3 +110,8 @@ void iteration_statement();
 void jump_statement();
 void function_statement();
 void function_compound();
+int is_storage_class_specifier();
+int is_type_specifier();
+int is_type_qualifier();
+int is_struct_or_union();
+int is_identifier();

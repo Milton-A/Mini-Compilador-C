@@ -55,9 +55,9 @@
 #define TK_ATR_MOD							"M�dulo e Atribuicao"
 #define TK_ATR_DES_ES						"Deslocamento a Esquerda e Atribuicao"
 #define TK_ATR_DES_D						"Deslocamento a Direita e Atribuicao"
-#define TK_ATR_BOU_EX		    				"OPerador Bitwise OU exclusivo e atribuicao"
-#define TK_ATR_BE		        				"Operador Bitwise E e Atribuicao"
-#define TK_ATR_BOU  			    			"Operador Bitwise OU e Atribuicao"
+#define TK_ATR_BOU_EX		    			"OPerador Bitwise OU exclusivo e atribuicao"
+#define TK_ATR_BE		        			"Operador Bitwise E e Atribuicao"
+#define TK_ATR_BOU  			    		"Operador Bitwise OU e Atribuicao"
 
 #define TK_ADDRESS						    "Endereço"
-#define TK_POINTER						"Ponteiro"
+#define TK_POINTER						    "Ponteiro"

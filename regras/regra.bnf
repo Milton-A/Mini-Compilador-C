@@ -28,10 +28,9 @@
 <struct-fim>::="ID"";"|";"
 
 <struct-or-union>::="struct"|"union"
-<struct-declaration>::={<specifier-qualifier>}* <struct-declaration-list>
-<specifier-qualifier>::=<type-specifier>|<type-qualifier>
-<struct-declaration-list>::=<struct-declarator><struct-declaration-list1>
-<struct-declaration-list1>::=<struct-declarator><struct-declaration-list1>|ε
+<struct-declaration>::=<specifier-qualifier> <struct-declarator> <struct-declaration-list>| ε
+<specifier-qualifier>::=<type-specifier>|<type-qualifier><type-specifier>
+
 
 <struct-declarator>::=<declarator><struct-declarator1>|":"<constant-expression>
 <struct-declarator1>::=":"<constant-expression>|ε

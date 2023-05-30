@@ -21,3 +21,15 @@ typedef struct ListaCodigo
 	Tipo dadoToken;
 	struct ListaCodigo* next;
 }ListaCodigo;
+
+typedef struct Erro {
+    char *mensagem;
+    int linha;
+    struct Erro *next;
+} Erro;
+
+typedef struct listaVariaveis {
+    char *varivel;
+    int linha;
+    struct listaVariaveis *next;
+} listaVariaveis;

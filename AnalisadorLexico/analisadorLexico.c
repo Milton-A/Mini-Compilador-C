@@ -1,6 +1,5 @@
 #include "../estruturas/estruturas.c"
 
-
 int cont = 0;
 int contLinha = 1;
 
@@ -26,38 +25,50 @@ void zerarVetor()
 	cont = 0;
 }
 
-void adicionarElemento(ListaCodigo** lista, Tipo dadoToken) {
-    // Criar um novo nó
-    ListaCodigo* newNode = (ListaCodigo*)malloc(sizeof(ListaCodigo));
-    newNode->dadoToken = dadoToken;
-    newNode->next = NULL;
+void adicionarElemento(ListaCodigo **lista, Tipo dadoToken)
+{
+	// Criar um novo nó
+	ListaCodigo *newNode = (ListaCodigo *)malloc(sizeof(ListaCodigo));
 
-    // Se a lista estiver vazia, o novo nó será o primeiro nó (cabeça)
-    if (*lista == NULL) {
-        *lista = newNode;
-    }
-    // Caso contrário, percorrer a lista até o último nó e inserir o novo nó no final
-    else {
-        ListaCodigo* atual = *lista;
-        while (atual->next != NULL) {
-            atual = atual->next;
-        }
-        atual->next = newNode;
-    }
+	// Atribuir os valores do dadoToken ao novo nó
+	newNode->dadoToken.token = strdup(dadoToken.token);
+	newNode->dadoToken.lexema = strdup(dadoToken.lexema);
+	newNode->dadoToken.linha = dadoToken.linha;
+	newNode->dadoToken.valorAtribuido = strdup(dadoToken.valorAtribuido);
+	newNode->dadoToken.enderecoMemoria = dadoToken.enderecoMemoria;
+	newNode->dadoToken.escopoVariavel = strdup(dadoToken.escopoVariavel);
+	newNode->dadoToken.tipoVariavel = strdup(dadoToken.tipoVariavel);
+	newNode->dadoToken.tamanhoByte = dadoToken.tamanhoByte;
+	newNode->next = NULL;
+
+	// Se a lista estiver vazia, o novo nó será o primeiro nó (cabeça)
+	if (*lista == NULL)
+	{
+		*lista = newNode;
+	}
+	// Caso contrário, percorrer a lista até o último nó e inserir o novo nó no final
+	else
+	{
+		ListaCodigo *atual = *lista;
+		while (atual->next != NULL)
+		{
+			atual = atual->next;
+		}
+		atual->next = newNode;
+	}
 }
 
-ListaCodigo* listaAnalisadorSinatico(FILE *ficheiro) {
-    ListaCodigo* lista = NULL;
-    Tipo t;
-
-    do {
-        t = analex(ficheiro);
-        adicionarElemento(&lista, t);
-    } while (t.token != TK_END);
-
-    return lista;
+ListaCodigo *listaAnalisadorSinatico(FILE *ficheiro)
+{
+	ListaCodigo *lista = NULL;
+	Tipo t;
+	do
+	{
+		t = analex(ficheiro);
+		adicionarElemento(&lista, t);
+	} while (t.token != TK_END);
+	return lista;
 }
-
 
 Tipo analex(FILE *ficheiro)
 {
@@ -68,10 +79,10 @@ Tipo analex(FILE *ficheiro)
 
 	while (!feof(ficheiro))
 	{
-		k.linha=contLinha;
+		k.linha = contLinha;
 		if (caractere == '\n')
 		{
-			 contLinha++;
+			contLinha++;
 		}
 		switch (estado)
 		{
@@ -296,7 +307,7 @@ Tipo analex(FILE *ficheiro)
 				vetor[cont] = caractere;
 				cont++;
 				char prox = lerCaractere();
-				
+
 				if (prox == '&')
 				{
 					estado = 55;
@@ -365,6 +376,7 @@ Tipo analex(FILE *ficheiro)
 			estado = 2;
 			break;
 		case 2:
+
 			k.lexema = vetor;
 			char *palavras_reservadas[] = {"auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "int", "long", "register", "return", "short", "signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while"};
 			for (int i = 0; i < 32; i++)
