@@ -2,7 +2,7 @@
 <program>::={<external-declaration>}*
 <external-declaration>::= <declaration-definition>
 
-<declaration-definition>::= {<declaration-specifier>}+<declaration-definition><declaration-definition1>|ε
+<declaration-definition>::= <declaration-specifier><declaration-definition><declaration-definition1>|ε
 <declaration-definition1>::=<struct-or-union-specifier>| <declarator> 
 
 <declarator>::={<pointer>}?"ID"<declarator1>
@@ -77,25 +77,25 @@
                         |"/"<cast-expression><multiplicative-expression1>
                         |"%"<cast-expression><multiplicative-expression1>|ε
 
-<cast-expression>::=<unary-expression><cast-expression>|ε
+    <cast-expression>::=<unary-expression><cast-expression>|ε
 
-<unary-expression>::=<postfix-expression>|"++"<unary-expression>|"--"<unary-expression>
-                        |<unary-operator> <cast-expression>|"sizeof" <unary-expression1>
-<unary-expression1>::=<unary-expression>|<type-name>
+    <unary-expression>::=<postfix-expression>|"++"<unary-expression>|"--"<unary-expression>
+                            |<unary-operator> <cast-expression>|"sizeof" <unary-expression1>
+    <unary-expression1>::=<unary-expression>|<type-name>
 
-<postfix-expression>::=<primary-expression>|<postfix-expression1>
-<postfix-expression1>::="["<expression>"]"<postfix-expression1>
-                        |"("<desp1>
-                        |"." "ID"<postfix-expression1>
-                        |"->" "ID"<postfix-expression1>
-                        |"++"<postfix-expression1>
-                        |"--"<postfix-expression1>|ε
-<desp1>::={<expression>}*")"<expression>|<type-name>")"|ε
+    <postfix-expression>::=<primary-expression>|<postfix-expression1>
+    <postfix-expression1>::="["<expression>"]"<postfix-expression1>
+                            |"("<desp1>
+                            |"." "ID"<postfix-expression1>
+                            |"->" "ID"<postfix-expression1>
+                            |"++"<postfix-expression1>
+                            |"--"<postfix-expression1>|ε
+    <desp1>::={<expression>}*")"<expression>|<type-name>")"|ε
 
-<primary-expression>::="ID" | <constant>|<string>
-<constant>::= <integer-constant> | <character-constant> | <floating-constant> | <enumeration-constant>
-<expression>::=<assignment-expression><expression1>
-<expression1>::=","<assignment-expression><expression1>|ε
+    <primary-expression>::="ID" | <constant>|<string>
+    <constant>::= <integer-constant> | <character-constant> | <floating-constant> | <enumeration-constant>
+    <expression>::=<assignment-expression><expression1>
+    <expression1>::=","<assignment-expression><expression1>|ε
 
 <assignment-expression>::=<conditional-expression>|<unary-expression> <assignment-operator> <assignment-expression>
 <assignment-operator>::= "="|"*="|"/="|"%="|"+="|"-="|"<<="|">>="|"&="|"^="|"|="

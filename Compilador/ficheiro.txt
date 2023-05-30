@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-// Estrutura para armazenar as informações de um documento
+// Estrutura para armazenar as informaÃ§Ãµes de um documento
 typedef struct Documento {
     int ID;
     double* pontuacoes;
@@ -15,7 +15,7 @@ typedef struct Armario{
     Doc* P_Documento;
 } Arm;
 
-// Função para calcular a distância euclidiana entre dois vetores
+// FunÃ§Ã£o para calcular a distÃ¢ncia euclidiana entre dois vetores
 double calcularDistanciaEuclidiana(double *vetor1, double *vetor2, int tamanho) {
     double distancia = 0;
     for (int i = 0; i < tamanho; i++) {
@@ -31,7 +31,7 @@ void inicializarVariaveis(Doc *docs, Arm* armario){
 	docs->P_Armario = NULL;
 }
 
-// Função para ler os documentos a partir de um arquivo
+// FunÃ§Ã£o para ler os documentos a partir de um arquivo
 Doc* lerDocumentos() {
 	Doc* tmp = (Doc*) malloc(D * sizeof(Doc));
     Doc* documento = (Doc*) malloc(D * sizeof(Doc));
@@ -64,13 +64,13 @@ Doc* lerDocumentos() {
     return documento;
 }
 
-// Função para fazer a atribuição inicial dos documentos aos armários
+// FunÃ§Ã£o para fazer a atribuiÃ§Ã£o inicial dos documentos aos armÃ¡rios
 Doc* atribuirDocumentos(Doc* documento, int D, int C) {
 	Doc* tmp = (Doc*) malloc(D * sizeof(Doc));
 	tmp = documento;
 	int i= 0;
     while(tmp->next!=NULL){
-        tmp->P_Armario->ID = i % C; // atribuição circular
+        tmp->P_Armario->ID = i % C; // atribuiÃ§Ã£o circular
         i++;
         tmp = tmp->next;
     }
@@ -87,12 +87,12 @@ void imprimir(Doc *documentos) {
 }
 /*
 void ds(){
-	    // Aloca memória para os documentos e seus vetores de pontuações de assuntos
+	    // Aloca memÃ³ria para os documentos e seus vetores de pontuaÃ§Ãµes de assuntos
     //Documento *documentos = malloc(numDocumentos * sizeof(Documento));
     for (int i = 0; i < numDocumentos; i++) {
         documentos[i].id = i;
         documentos[i].numAssuntos = numAssuntos;
         documentos[i].pontuacoesAssuntos = malloc(numAssuntos * sizeof(double));
-        documentos[i].armarioAtual = rand() % numArmarios; // Atribuição inicial aleatória
+        documentos[i].armarioAtual = rand() % numArmarios; // AtribuiÃ§Ã£o inicial aleatÃ³ria
     }
 }*/

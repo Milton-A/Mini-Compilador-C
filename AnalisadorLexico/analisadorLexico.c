@@ -1,6 +1,5 @@
-#include "../directivasDeProcessamento/Bibliotecas.c"
-#include "token.h"
 #include "../estruturas/estruturas.c"
+
 
 int cont = 0;
 int contLinha = 1;
@@ -264,9 +263,7 @@ Tipo analex(FILE *ficheiro)
 				vetor[cont] = caractere;
 				cont++;
 				char prox = lerCaractere();
-				/*if(prox == '='){
-
-				}else */
+				
 				if (prox == '&')
 				{
 					estado = 55;
@@ -391,7 +388,6 @@ Tipo analex(FILE *ficheiro)
 		case 7:
 			k.lexema = vetor;
 			k.token = TK_FLOAT;
-
 			return k;
 			break;
 		case 8:

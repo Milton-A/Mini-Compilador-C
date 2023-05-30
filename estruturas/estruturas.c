@@ -1,15 +1,23 @@
-#include "header.h"
+#include "headerCompile.h"
+#include "token.h"
+#define MAX 10000
+
+FILE *ficheiro;
+char vetor[MAX];
 
 typedef struct Tipo
 {
 	char *token;
 	char *lexema;
    	int linha;
-    char *tipoDeDado;
     char *valorAtribuido;
-	int posicaoToken;
-	int tamanhoLexema;
-    int endereçoMemoria;
-    char *escopo;
-    int tamanhoByte;
+    int *enderecoMemoria;
+    char *escopoVariavel;
+    char *tipoVariavel; //funcao
+    size_t tamanhoByte;
 }Tipo;
+typedef struct ListaCodigo
+{
+	Tipo dadoToken;
+	struct ListaCodigo* next;
+}ListaCodigo;

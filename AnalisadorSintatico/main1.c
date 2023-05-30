@@ -4,39 +4,6 @@
 #include <string.h>
 #define MAX_IDENTIFICADOR 1000
 
-
-// Protótipos das funções
-void programa(void);
-void declaracoes(void);
-void declaracao(void);
-void tipo(void);
-void lista_declaracoes(void);
-void comandos(void);
-void comando(void);
-void comando_if_else(void);
-void comando_while(void);
-void comando_for(void);
-void comando_atribuicao(void);
-void comando_chamada_funcao(void);
-void argumentos(void);
-void expressao(void);
-void expressao_simples(void);
-void termo(void);
-void fator(void);
-void chamada_funcao(void);
-void constante(void);
-void constante_numerica(void);
-void constante_caracter(void);
-void constante_cadeia(void);
-void caracteres(void);
-void identificador(void);
-void letra(void);
-void digito(void);
-void op_relacional(void);
-void op_soma(void);
-void op_multiplicacao(void);
-void atribuicao(void);
-
 // Variáveis globais
 char *entrada; // Ponteiro para a entrada
 char *posicao_atual; // Ponteiro para a posição atual na entrada
