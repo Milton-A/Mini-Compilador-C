@@ -4,7 +4,7 @@
 int cont = 0;
 int contLinha = 1;
 
-Tipo k;
+Tipo k, t;
 
 char lerCaractere()
 {
@@ -25,6 +25,39 @@ void zerarVetor()
 	}
 	cont = 0;
 }
+
+void adicionarElemento(ListaCodigo** lista, Tipo dadoToken) {
+    // Criar um novo nó
+    ListaCodigo* newNode = (ListaCodigo*)malloc(sizeof(ListaCodigo));
+    newNode->dadoToken = dadoToken;
+    newNode->next = NULL;
+
+    // Se a lista estiver vazia, o novo nó será o primeiro nó (cabeça)
+    if (*lista == NULL) {
+        *lista = newNode;
+    }
+    // Caso contrário, percorrer a lista até o último nó e inserir o novo nó no final
+    else {
+        ListaCodigo* atual = *lista;
+        while (atual->next != NULL) {
+            atual = atual->next;
+        }
+        atual->next = newNode;
+    }
+}
+
+ListaCodigo* listaAnalisadorSinatico(FILE *ficheiro) {
+    ListaCodigo* lista = NULL;
+    Tipo t;
+
+    do {
+        t = analex(ficheiro);
+        adicionarElemento(&lista, t);
+    } while (t.token != TK_END);
+
+    return lista;
+}
+
 
 Tipo analex(FILE *ficheiro)
 {

@@ -5,47 +5,22 @@ int ctrScopo = 0;
 int linhaTmp = 0;
 char *idActual;
 Tipo tipoTokenActual;
+
 ListaCodigo *lista = NULL;
-
-void adicionarElemento(Tipo dadoToken)
+void program(FILE* ficheiro)
 {
-    // Criar um novo nó
-    ListaCodigo *newNode = (ListaCodigo *)malloc(sizeof(ListaCodigo));
-    newNode->dadoToken = dadoToken;
-    newNode->next = NULL;
-
-    // Se a lista estiver vazia, o novo nó será o primeiro nó (cabeça)
-    if (lista == NULL)
+    lista = listaAnalisadorSinatico(ficheiro);
+    if(lista == NULL)
     {
-        lista = newNode;
+        printf("Ficheiro Vazio!");
     }
-    // Caso contrário, percorrer a lista até o último nó e inserir o novo nó no final
     else
     {
-        ListaCodigo *atual = lista;
-        while (atual->next != NULL)
-        {
-            atual = atual->next;
-        }
-        atual->next = newNode;
+        printf("Lido....");
+        //declaration_definition();
     }
 }
-
-void program(FILE *t)
-{
-    ListaCodigo *lista = NULL;
-    tipoTokenActual = analex(ficheiro);
-    do
-    {
-        external_declaration();
-    } while (tipoTokenActual.token != TK_END);
-}
-
-void external_declaration()
-{
-    declaration_definition();
-}
-
+/*
 void declaration_definition()
 {
     // Verificar se há um <declaration-specifier>
@@ -356,6 +331,7 @@ bool is_type_specifier()
      {
          // Processar o nome de um typedef
      }*/
+     /*
     else
     {
         return false;
@@ -1727,4 +1703,4 @@ void function_compound()
     {
         // Falta abrir o parêntese '('
     }
-}
+}*/
